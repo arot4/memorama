@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Memorama</title>
+        <style>
+            /* Clase CSS para las imágenes */
+            .carta {
+                width: 200px;  /* Ancho fijo */
+                height: 300px; /* Alto fijo */
+                object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+            }
+        </style>
+        <script>
+            var validacion = 0; 
+            var esperando = true;
+            var temporal = "";
+            var images = [
+            /* ./img/1.jpg for DOS users*/
+            "./images/1.jpg", "./images/1.jpg",
+            "./images/2.jpg", "./images/2.jpg",
+            "./images/3.jpg", "./images/3.jpg",
+            "./images/4.jpg", "./images/4.jpg",
+            "./images/5.jpg", "./images/5.jpg",
+            "./images/6.jpg", "./images/6.jpg",
+            "./images/7.jpg", "./images/7.jpg",
+            "./images/8.jpg", "./images/8.jpg",
+            ];
+
+            async function flip(posicion){
+                document.getElementById('images' + posicion).srcset = images[posicion] + " 200w";;
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                if (esperando) {
+                    temporal = posicion;
+                }else {
+                    if (images[posicion] == images[temporal]) {
+                        document.getElementById('images' + posicion).srcset="./images/Token.png 200w";
+                        document.getElementById('images' + temporal).srcset="./images/Token.png 200w";
+
+                        validacion++;
+                        if (validacion==8) {
+                            alert("Ganaste")
+                        }
+                    } else {
+                        document.getElementById('images' + posicion).srcset="./images/Anverso.jpg 200w";
+                        document.getElementById('images' + temporal).srcset="./images/Anverso.jpg 200w";
+                    }
+                }
+                esperando=!esperando;
+            }
+
+            function shuffle() {
+            for (var i = images.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [images[i], images[j]] = [images[j], images[i]];
+            }
+            
+        }
+
+        </script>
+    </head>
+    <body onload="shuffle();">
+        <div style="display: flex; justify-content: center;">
+        <table>
+            <tr>
+                <td><img class="carta" id="images0" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(0);"></td>
+                <td><img class="carta" id="images1" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(1);"></td>
+                <td><img class="carta" id="images2" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(2);"></td>
+                <td><img class="carta" id="images3" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(3);"></td>
+            </tr>
+            <tr>
+                <td><img class="carta" id="images4" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(4);"></td>
+                <td><img class="carta" id="images5" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(5);"></td>
+                <td><img class="carta" id="images6" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(6);"></td>
+                <td><img class="carta" id="images7" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(7);"></td>
+            </tr>
+            <tr>
+                <td><img class="carta" id="images8" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(8);"></td>
+                <td><img class="carta" id="images9" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(9);"></td>
+                <td><img class="carta" id="images10" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(10);"></td>
+                <td><img class="carta" id="images11" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(11);"></td>
+            </tr>
+            <tr>
+                <td><img class="carta" id="images12" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(12);"></td>
+                <td><img class="carta" id="images13" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(13);"></td>
+                <td><img class="carta" id="images14" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(14);"></td>
+                <td><img class="carta" id="images15" srcset="images\Anverso.jpg 200w" sizes="50px" onclick="flip(15);"></td>
+            </tr>
+        </table>
+    </div>
+    </body>
+</html>
